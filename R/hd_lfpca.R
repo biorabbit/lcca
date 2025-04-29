@@ -136,14 +136,17 @@ if (is.na(Nx) | is.na(Nw)){
 
 	while (lim>varthresh){
 		if (min(Aw$values[1:Nw])<min(Ax$values[1:Nx])){Nw=Nw0-1}else{Nx=Nx0-1}
+	  if (Nw == 0 | Nx == 0){
+	    stop("Nw/Nx is 0, noise level is too small!")
+	  }
 		lim=(sum(Ax$values[1:Nx])+sum(Aw$values[1:Nw]))/(sum(Ax$values[1:sum(Ax$values>0)])+sum(Aw$values[1:sum(Aw$values>0)]));
 		Nx0<-Nx;Nw0<-Nw
 #	if (lim>varthresh){Nx=Nx-1;Nw=Nw-1}
 		if(verbose==TRUE){print(c(Nx,Nw,lim))}
 }
 }
-Ax0 =  Ax$vectors[1:J_projected,1:Nx]
-Ax1 = Ax$vectors[1:J_projected+J_projected,1:Nx]
+Ax0 =  Ax$vectors[1:J_projected,1:Nx, drop = FALSE]
+Ax1 = Ax$vectors[1:J_projected+J_projected,1:Nx, drop = FALSE]
 S_x = Ax$values[1:Nx]
 S_u = Aw$values[1:Nw]
 Au =  Aw$vectors[,1:Nw]

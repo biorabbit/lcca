@@ -198,7 +198,7 @@ separate <- function(data,fea)
        j <- 0
        for (i in 1:m)
            {
-            mat[[i]] <- data[, (j + 1):(j + fea[i])]
+            mat[[i]] <- data[, (j + 1):(j + fea[i]), drop = FALSE]
             j <- j + fea[i]
            }
 
